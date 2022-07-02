@@ -5,6 +5,7 @@ import cors from 'cors';
 import dotenv from 'dotenv'
 
 import userRouter from './routes/user.js'
+import nutritionRouter from './routes/nutrition.js'
 
 
 const app = express()
@@ -16,6 +17,7 @@ app.use(cors())
 
 
 app.use('/user', userRouter)
+app.use('/product', nutritionRouter)
 
 const CONNECTION_URL = process.env.CONNECTION_URL
 const PORT = process.env.PORT || 5000
