@@ -40,9 +40,9 @@ export const signup = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 12)
 
-    const result = await UserModal.create({ email, password: hashedPassword, username })
+    const result = await UserModal.create({ email, password: hashedPassword, username, diary:{} })
 
-    const token = jwt.sign( { email: result.email, id: result._id }, secret, { expiresIn: "1h" } )
+    const token = jwt.sign( { email: result.email, id: result._id, diary: result.diary }, secret, { expiresIn: "1h" } )
 
     res.status(201).json({ result, token })
   } catch (error) {
