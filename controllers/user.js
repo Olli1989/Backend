@@ -31,7 +31,8 @@ export const signin = async (req, res) => {
 
 export const signup = async (req, res) => {
 
-  const { email, password, username } = req.body
+  const { email, password, username, personalData } = req.body
+  const diary= {}
 
   try {
     const oldUser = await UserModal.findOne({ email })
@@ -40,11 +41,34 @@ export const signup = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 12)
 
-    const result = await UserModal.create({ email, password: hashedPassword, username, diary:{} })
+    const result = await UserModal.create({ email, password: hashedPassword, username, diary, personalData })
 
     const token = jwt.sign( { email: result.email, id: result._id, diary: result.diary }, secret, { expiresIn: "1h" } )
 
     res.status(201).json({ result, token })
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong" })
+    
+    console.log(error);
+  }
+};
+
+
+export const updateUser = async (req, res) => {
+
+  const { email, diary } = req.body
+
+
+
+  try {
+    const oldUser = await UserModal.findOne({ email })
+
+
+    await UserModal.findOneAndUpdate({email},{diary: diary},{upsert: true})
+
+
+
+    res.status(201).json({ message: "Updated data" })
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" })
     
