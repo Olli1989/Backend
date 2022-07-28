@@ -6,7 +6,7 @@ dotenv.config()
 
 import UserModal from "../models/userModal.js"
 
-const secret = process.env.SECRET
+const secret = 'myPrivateKey'
 
 export const signin = async (req, res) => {
 
