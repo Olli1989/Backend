@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { application } from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
@@ -28,3 +28,7 @@ mongoose.connect(CONNECTION_URL, { useNewUrlParser: true })
   }))
   .catch((error)=>console.log(error.message))
 
+
+app.get('/', (req,res)=>{
+  res.send("hallo")
+})
