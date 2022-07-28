@@ -31,8 +31,8 @@ export const signin = async (req, res) => {
 
 export const signup = async (req, res) => {
 
-  const { email, password, username, personalData } = req.body
-  const diary= {}
+  const { email, password, username, diary, personalData } = req.body
+ 
 
   try {
     const oldUser = await UserModal.findOne({ email })
